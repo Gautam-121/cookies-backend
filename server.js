@@ -4,15 +4,17 @@ const cors = require('cors');
 
 
 const app = express();
+const PORT = process.env.PORT || 8081
 
 // Use cookie-parser middleware
 app.use(cookieParser());
 
 // Enable CORS with credentials
 // Allow multiple origins
-const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500',"http://localhost:5173"];
+const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500',"http://localhost:5173" , "http://localhost:8081","https://cookies-frontend.vercel.app/"];
 app.use(cors({
   origin: (origin, callback) => {
+    console.log(origin)
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -42,6 +44,6 @@ app.get('/get-cookie', (req, res) => {
 });
 
 
-app.listen(8081,()=>{
-    console.log("Server listening on port 8081")
+app.listen(PORT,()=>{
+    console.log("Server listening on port ", PORT)
 })
